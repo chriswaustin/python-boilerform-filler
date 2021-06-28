@@ -5,7 +5,8 @@ uses the pandas library for working with excel and minidom for editing the docx 
 '''
 
 from pandas import read_excel
-import os, sys
+import os
+import sys
 import inspect
 import shutil
 import zipfile
@@ -40,7 +41,7 @@ def copy_unzip_docx(docx_file):
     folderpath = os.path.dirname(os.path.abspath(
         inspect.getfile(inspect.currentframe()))) + '/tmp/'
 
-    # create the tmp folder if it doesnt exist and then copy
+    # create the tmp folder if it doesn't exist and then copy
     if not(os.path.exists(folderpath)):
         os.mkdir(folderpath)
 
@@ -54,10 +55,9 @@ def zip_and_save_docx(filename):
         inspect.getfile(inspect.currentframe())))
     x = datetime.datetime.now()
     input_path = folder_path + '/tmp/'
-    output_path = folder_path + '/output/' # + x.strftime("%c") + '/'
+    output_path = folder_path + '/output/'  # + x.strftime("%c") + '/'
 
-
-    # create the output folder if it doesnt exist and then copy
+    # create the output folder if it doesn't exist and then copy
     if not(os.path.exists(output_path)):
         print(output_path)
         os.mkdir(output_path)
@@ -100,10 +100,9 @@ def fill_boilerplate(replace_dict):
                     '/' + key + '/', replace_dict[key])
             text.firstChild.data = new_text
 
-    # save the docuemnt afterwards with changes
+    # save the document afterwards with changes
     with open(filepath, 'w') as f:
         f.write(template.toxml())
-
 
 
 def main(docx_file, excel_file):
@@ -117,8 +116,9 @@ def main(docx_file, excel_file):
 
     clean_tmp()
 
+
 if __name__ == '__main__':
     if len(sys.argv) == 3:
         main(sys.argv[1], sys.argv[2])
-    else :
+    else:
         main(docx_file, excel_file)
