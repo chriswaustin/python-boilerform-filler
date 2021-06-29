@@ -3,13 +3,15 @@ from tkinter.constants import INSERT
 from tkinter.filedialog import askopenfilename, askdirectory
 from tkinter.font import ROMAN
 from xml.dom.minidom import Text
+from python_boilerplate_filler import process
 
-'''
-Create a row with a file selector and label to display the selected button
-'''
+# create s file selector widget with a label display text and file select button
+# take a label name and row number
 
 
 class FileSelectorWidget(tk.Frame):
+    filename = ''
+
     def select_file(self, parent, label):
         filename = askopenfilename()
         label.delete(1.0, tk.END)
@@ -48,12 +50,13 @@ class MainApplication(tk.Frame):
         self.parent.title('Boilerplate Filler')
         self.excel_template = FileSelectorWidget(self, 'Excel File', 0)
         self.word_template = FileSelectorWidget(self, 'Word Template', 1)
-        self.process_button = ProcessButton(self, lambda: print('test'), 2)
+        self.process_button = ProcessButton(
+            self, lambda: self.process_files(), 2)
 
     def process_files(main_application):
         excelpath = main_application.excel_template.filename
         wordpath = main_application.word_template.filename
-        # TODO export main function and plug in these values and run
+        process(wordpath, excelpath)
 
 
 if __name__ == "__main__":

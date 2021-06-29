@@ -105,13 +105,13 @@ def fill_boilerplate(replace_dict):
         f.write(template.toxml())
 
 
-def main(docx_file, excel_file):
+def process(docx_file, excel_file):
     replace_dicts = get_excel_data(excel_file)
     i = 1
     for replace_dict in replace_dicts:
         copy_unzip_docx(docx_file)
         fill_boilerplate(replace_dict)
-        zip_and_save_docx('test_' + str(i))
+        zip_and_save_docx('Doc_' + str(i))
         i += 1
 
     clean_tmp()
@@ -119,6 +119,6 @@ def main(docx_file, excel_file):
 
 if __name__ == '__main__':
     if len(sys.argv) == 3:
-        main(sys.argv[1], sys.argv[2])
+        process(sys.argv[1], sys.argv[2])
     else:
-        main(docx_file, excel_file)
+        process(docx_file, excel_file)
